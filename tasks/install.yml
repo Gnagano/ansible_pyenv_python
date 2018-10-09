@@ -1,0 +1,17 @@
+---
+- name: Set for path of pyenv
+  stat: path="{{ python_pyenv_install_dir }}/versions/{{ python_version | default('2.7.15') }}/bin/python"
+  register: pyenv_command_path
+
+- block:
+  - name: install python
+    become_user: root
+    shell: "pyenv install {{ python_version | default('2.7.15') }}"
+
+  - name: pyenv global
+    shell: "pyenv global {{ python_version | default('2.7.15') }}"
+
+  environment:
+  - PATH: "{{ python_pyenv_install_dir }}/bin/:{{ lookup('env','PATH') }}"
+  - PYENV_ROOT: "{{ python_pyenv_install_dir }}"
+  when: pyenv_command_path.stat.exists == false
