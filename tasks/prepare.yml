@@ -4,4 +4,4 @@
     name: "{{ item }}"
     state: present
     update_cache: yes
-  with_items: "{{ python_required_libraries }}"
+  with_items: "{{ os_vars.python_required_libraries }}"
