@@ -1,3 +1,18 @@
 ---
+# - set_fact:
+#     os_type: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}"
+#
+# - include_vars:
+#     file: "{{ os_type }}.yml"
+#     name: os_init
+#
+# # common installation
+# - include_tasks: "common.yml"
+#
+# # individual installtion for each OS
+# - include_tasks: "{{ os_type }}.yml"
+#   when:
+#     os_type == "CentOS6"
+
 - include: prepare.yml tags=pyenv_python
 - include: install.yml tags=pyenv_python
